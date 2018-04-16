@@ -12,7 +12,7 @@ gem 'devise',       '~> 3.5.2'
 gem 'devise-bootstrap-views', '~> 0.0.6'
 
 group :production do
-  gem 'pg'
+  gem 'pg', 		'~> 0.11'
 end
 
 group :development do
