@@ -1,0 +1,24 @@
+<h1 class='page-header'>History</h1>
+
+<div class="container">        
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Opponent</th>
+        <th>Score</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @games.each_with_index do |game| %>
+		<tr>
+			<td><%= game.game_date  %></td>
+			<td><%= opponent_name(game) %></td>
+	        <td><%= score_to_s(game) %></td>
+	        <td><%= result_to_s(game) %></td>
+	    </tr>
+	<% end %>
+    </tbody>
+  </table>
+</div>

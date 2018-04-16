@@ -1,21 +1,26 @@
 class Game < ActiveRecord::Base
-	belongs_to user:
-	belongs_to :opponent,class_name: 'User'
+	belongs_to :user
+	belongs_to :opponent, class_name: 'User'
 
 	after_initialize :set_defaults
-	before_save :calculate_game_result
+	before_save :game_rules
 	after_create :update_rankings
 
-	validates_presence_of :user_id, :opponent_id, :user_score, :opponent_score, :game_date
+	scope :games_played, ->(user_id) { where("user_id = ? OR opponent_id = ?", user_id, user_id) }
 
-	scope :games_played, -> {
-		games = Game.arel_table
-		where(games[:user_id].eq(user).or(games[:opponent_id].eq(user)))
-	}
+	validates_presence_of :user_id, :opponent_id
+	validate :winner
 
-	def calculate_game_result
-		if user_score >= 21 || opponent.score >= 21
-			result = user.score - opponent.score
+	def winner
+		if user_score > opponent_score
+			self.result = true
+		end
+
+	end
+
+	def game_rules
+		if user_score >= 21 || opponent_score >= 21
+			result = user_score - opponent_score
 			return true if result.abs >= 2
 		end
 
@@ -24,13 +29,14 @@ class Game < ActiveRecord::Base
 	end
 
 	def update_rankings
-		# TODO
+		self.user.update_rankings self
 	end
 
 	def set_defaults
 		self.result ||= false
 		self.user_score ||= 0
 		self.opponent_score ||= 0
+		self.game_date ||= Date.today
 	end
 
 end

@@ -3,7 +3,12 @@ class GamesController < ApplicationController
 
   # GET /games
   def index
-    @games = current_user.games
+    @games = Game.all
+  end
+
+  # GET /games/history
+  def history
+    @games = current_user.games_played
   end
 
   # GET /games/1
@@ -22,7 +27,7 @@ class GamesController < ApplicationController
   # POST /games
   def create
     @game = Game.new(game_params)
-    @game.user = current_user
+    @game.user_id = current_user.id
 
     if @game.save
       redirect_to games_path, notice: 'Game was successfully created.'

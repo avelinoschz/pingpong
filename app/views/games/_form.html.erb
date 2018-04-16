@@ -11,27 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :opponent_id %><br>
-    <%= f.number_field :opponent_id %>
-  </div>
-  <div class="field">
-    <%= f.label :user_score %><br>
-    <%= f.number_field :user_score %>
-  </div>
-  <div class="field">
-    <%= f.label :opponent_score %><br>
-    <%= f.number_field :opponent_score %>
-  </div>
-  <div class="field">
-    <%= f.label :game_date %><br>
+  <div class='form-group'>
+    <%= f.label :game_date, 'Date Played' %><br>
     <%= f.date_select :game_date %>
   </div>
-  <div class="field">
-    <%= f.label :result %><br>
-    <%= f.check_box :result %>
+  <div class='input-group'>
+    <%= f.label :opponent_id %><br>
+    <%= f.number_field :opponent_id, class: 'form-control' %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class='input-group'>
+    <%= f.label :user_score, 'Your Score' %><br>
+    <%= f.number_field :user_score, class: 'form-control' %>
   </div>
+  <div class='input-group'>
+    <%= f.label :opponent_score, 'Their Score' %><br>
+    <%= f.number_field :opponent_score, class: 'form-control' %>
+  </div> 
+  <br>
+  <div class='actions'>
+    <%= f.submit 'Save' %>
+  </div>
+
 <% end %>
