@@ -30,7 +30,7 @@ class GamesController < ApplicationController
     @game.user_id = current_user.id
 
     if @game.save
-      redirect_to games_path, notice: 'Game was successfully created.'
+      redirect_to history_path, notice: 'Game was successfully created.'
     else
       render :new
     end
